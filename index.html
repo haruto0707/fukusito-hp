@@ -4,9 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FukusITo | 福祉×ITで未来を創る</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Poppins を使用 -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    /* カラーバリアブル */
+    :root {
+      --orange: #FFA500;
+      --green:  #32CD32;
+      --dark-bg: #121212;
+      --mid-bg:  #1e1e1e;
+      --light-text: #f0f0f0;
+    }
     /* リセット */
     * {
       margin: 0;
@@ -14,19 +22,24 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      background: #0d0d0d;
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark-bg);
+      color: var(--light-text);
       line-height: 1.6;
+      overflow-x: hidden;
     }
-    /* ヘッダー */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* 固定ヘッダー */
     header {
-      background: rgba(0, 0, 0, 0.8);
       position: fixed;
       width: 100%;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .container {
       width: 90%;
@@ -42,91 +55,148 @@
     }
     nav .logo h2 {
       font-size: 1.8rem;
+      letter-spacing: 1px;
     }
     nav ul {
       list-style: none;
       display: flex;
     }
     nav ul li {
-      margin-left: 20px;
+      margin-left: 25px;
     }
     nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
+      font-weight: 600;
       transition: color 0.3s;
     }
     nav ul li a:hover {
-      color: #00d1b2;
+      color: var(--orange);
     }
     /* ヒーローセクション */
     .hero {
       height: 100vh;
-      background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center/cover;
+      background: url('https://source.unsplash.com/1600x900/?technology,abstract') no-repeat center center/cover;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
     }
-    .hero::after {
+    /* オーバーレイ＋背景アニメーション */
+    .hero::before {
       content: "";
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+      background: linear-gradient(135deg, rgba(255,165,0,0.5), rgba(50,205,50,0.5));
+      mix-blend-mode: screen;
+      animation: gradientShift 8s ease-in-out infinite alternate;
+    }
+    @keyframes gradientShift {
+      0% {
+        filter: hue-rotate(0deg);
+      }
+      100% {
+        filter: hue-rotate(45deg);
+      }
     }
     .hero-content {
       position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      text-align: center;
+      z-index: 1;
+      max-width: 800px;
       padding: 0 20px;
+      animation: fadeInDown 1.2s ease-out;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .hero-content h1 {
-      font-size: 4rem;
+      font-size: 3.8rem;
       margin-bottom: 20px;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
     }
     .hero-content p {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       margin-bottom: 30px;
       text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
     }
     .btn {
-      display: inline-block;
-      background: #00d1b2;
+      background: var(--orange);
       color: #000;
-      padding: 10px 25px;
+      padding: 12px 30px;
       border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background 0.3s;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.3s;
     }
     .btn:hover {
-      background: #00b89c;
+      background: var(--green);
+      transform: scale(1.05);
+    }
+    /* スクロールダウンアイコン */
+    .scroll-down {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 50px;
+      border: 2px solid var(--light-text);
+      border-radius: 25px;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+    .scroll-down::after {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--light-text);
+      border-radius: 50%;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
     }
     /* セクション共通 */
     section {
-      padding: 80px 0;
+      padding: 100px 0;
     }
     .section-title {
       text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
+      margin-bottom: 60px;
       position: relative;
       display: inline-block;
     }
     .section-title::after {
       content: "";
-      width: 60px;
+      width: 80px;
       height: 4px;
-      background: #00d1b2;
+      background: var(--green);
       position: absolute;
       left: 50%;
-      bottom: -10px;
+      bottom: -12px;
       transform: translateX(-50%);
     }
-    /* About, Service セクション */
+    /* フェードイン用初期状態 */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* About & Service セクションのスタイル */
     .about, .service {
-      background: #1a1a1a;
-      padding: 60px 20px;
+      background: var(--mid-bg);
+      padding: 60px;
       border-radius: 10px;
       margin-bottom: 40px;
     }
@@ -136,12 +206,38 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .service-item {
+      background: var(--dark-bg);
+      padding: 30px;
+      border-radius: 8px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .service-item h3 {
+      margin-bottom: 15px;
+      color: var(--orange);
+    }
+    /* Contact セクション */
+    .contact-info {
+      background: var(--mid-bg);
+      padding: 40px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .contact-info a {
+      color: var(--orange);
+      font-weight: 600;
     }
     /* フッター */
     footer {
-      background: #0d0d0d;
+      background: var(--dark-bg);
       padding: 40px 0;
       text-align: center;
       font-size: 0.9rem;
@@ -151,6 +247,9 @@
     @media (max-width: 768px) {
       .hero-content h1 {
         font-size: 3rem;
+      }
+      .hero-content p {
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -175,45 +274,58 @@
 
   <!-- ヒーローセクション -->
   <section class="hero" id="hero">
-    <div class="hero-content container">
+    <div class="hero-content">
       <h1>福祉とITの融合</h1>
-      <p>未来を創る、あたたかなテクノロジー</p>
+      <p>テクノロジーで温かい未来を創る</p>
       <a href="#service" class="btn">もっと見る</a>
     </div>
+    <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });"></div>
   </section>
 
   <!-- About セクション -->
-  <section id="about" class="container">
+  <section id="about" class="container fade-in">
     <h2 class="section-title">About FukusITo</h2>
     <div class="about">
       <p>
-        FukusITo（フクシト）は、福祉の温かい心と最先端のIT技術を融合し、誰もが暮らしやすい社会を実現するために設立されました。
+        FukusITo（フクシト）は、福祉の温かさと先端技術を融合し、誰もが安心して暮らせる社会の実現を目指しています。
       </p>
       <p>
-        私たちのミッションは、テクノロジーの力でコミュニティの輪を広げ、互いに助け合う社会を構築することです。
+        私たちは、コミュニティの絆を強め、テクノロジーの力で新しい価値を提供することに情熱を注いでいます。
       </p>
     </div>
   </section>
 
   <!-- Service セクション -->
-  <section id="service" class="container">
+  <section id="service" class="container fade-in">
     <h2 class="section-title">Our Service</h2>
     <div class="service grid">
       <div class="service-item">
-        <h3>リアルタイムマッチングサービス</h3>
+        <h3>リアルタイムマッチング</h3>
         <p>
-          助け合いを目的としたマッチングサービスで、必要な時に必要なサポートを手軽に受けられる仕組みを提供します。
+          助け合いを目的とした、瞬時にマッチングできるサービスで、必要なサポートを提供します。
+        </p>
+      </div>
+      <div class="service-item">
+        <h3>革新的なコミュニケーション</h3>
+        <p>
+          最新技術を駆使し、直感的な操作でユーザー同士がつながるプラットフォームを実現。
+        </p>
+      </div>
+      <div class="service-item">
+        <h3>安心・安全な環境</h3>
+        <p>
+          高度なセキュリティ対策により、安心してご利用いただけるサービス環境を提供します。
         </p>
       </div>
     </div>
   </section>
 
   <!-- Contact セクション -->
-  <section id="contact" class="container">
+  <section id="contact" class="container fade-in">
     <h2 class="section-title">Contact Us</h2>
-    <div class="about">
-      <p>お問い合わせは以下のメールアドレスまでご連絡ください。</p>
-      <p>Email: <a href="mailto:support@fukusito.net" style="color:#00d1b2;">support@fukusito.net</a></p>
+    <div class="contact-info">
+      <p>ご質問やご意見は以下のメールアドレスまでお気軽にお問い合わせください。</p>
+      <p>Email: <a href="mailto:info@fukusito.com">info@fukusito.com</a></p>
     </div>
   </section>
 
@@ -223,5 +335,26 @@
       <p>&copy; 2025 FukusITo. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- スクロール時のフェードインアニメーション用 JavaScript -->
+  <script>
+    // Intersection Observer で .fade-in 要素に appear クラスを追加
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.3
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+  </script>
 </body>
 </html>
