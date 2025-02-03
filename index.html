@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FukusITo | 福祉×ITで未来を創る</title>
+  <!-- リセットCSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
   <!-- Google Fonts: Poppins を使用 -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -70,6 +72,11 @@
     }
     nav ul li a:hover {
       color: var(--orange);
+    }
+    /* 各セクションのマージン */
+    #about, #service, #contact {
+      margin-top: 40px;
+      margin-bottom: 40px;
     }
     /* ヒーローセクション */
     .hero {
@@ -198,7 +205,6 @@
       background: var(--mid-bg);
       padding: 60px;
       border-radius: 10px;
-      margin-bottom: 40px;
     }
     .about p, .service p {
       font-size: 1.1rem;
@@ -206,6 +212,8 @@
     }
     .grid {
       display: grid;
+      align-items: center;
+      justify-content: center;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
     }
