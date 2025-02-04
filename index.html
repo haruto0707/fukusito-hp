@@ -1,239 +1,132 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
   <title>FukusITo | 福祉×ITで未来を創る</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* リセット */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      background: #0d0d0d;
-      line-height: 1.6;
-    }
-    /* ヘッダー */
-    header {
-      background: rgba(0, 0, 0, 0.8);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px;
-    }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-    }
-    nav .logo h2 {
-      font-size: 1.8rem;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-    }
-    nav ul li {
-      margin-left: 20px;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-      transition: color 0.3s;
-    }
-    nav ul li a:hover {
-      color: #00d1b2;
-    }
-    /* ヒーローセクション */
-    .hero {
-      height: 100vh;
-      background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center/cover;
-      position: relative;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
-    }
-    .hero-content {
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      text-align: center;
-      padding: 0 20px;
-    }
-    .hero-content h1 {
-      font-size: 4rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    }
-    .btn {
-      display: inline-block;
-      background: #00d1b2;
-      color: #000;
-      padding: 10px 25px;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: #00b89c;
-    }
-    /* セクション共通 */
-    section {
-      padding: 80px 0;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    .section-title::after {
-      content: "";
-      width: 60px;
-      height: 4px;
-      background: #00d1b2;
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-    }
-    /* About, Service セクション */
-    .about, .service {
-      background: #1a1a1a;
-      padding: 60px 20px;
-      border-radius: 10px;
-      margin-bottom: 40px;
-    }
-    .about p, .service p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    /* フッター */
-    footer {
-      background: #0d0d0d;
-      padding: 40px 0;
-      text-align: center;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    /* レスポンシブ */
-    @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 3rem;
-      }
-    }
-  </style>
 </head>
+
 <body>
-  <!-- ヘッダー -->
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <h2>FukusITo</h2>
-        </div>
-        <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#service">Service</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ヒーローセクション -->
-  <section class="hero" id="hero">
-    <div class="hero-content container">
-      <h1>福祉とITの融合</h1>
-      <p>未来を創る、あたたかなテクノロジー</p>
-      <a href="#service" class="btn">もっと見る</a>
+  <!-- Hero -->
+  <section class="et-hero-tabs">
+    <h1>STICKY SLIDER NAV</h1>
+    <h3>Sliding content with sticky tab nav</h3>
+    <div class="et-hero-tabs-container">
+      <a class="et-hero-tab" href="#tab-es6">ES6</a>
+      <a class="et-hero-tab" href="#tab-flexbox">Flexbox</a>
+      <a class="et-hero-tab" href="#tab-react">React</a>
+      <a class="et-hero-tab" href="#tab-angular">Angular</a>
+      <a class="et-hero-tab" href="#tab-other">Other</a>
+      <span class="et-hero-tab-slider"></span>
     </div>
   </section>
 
-  <!-- About セクション -->
-  <section id="about" class="container">
-    <h2 class="section-title">About FukusITo</h2>
-    <div class="about">
-      <p>
-        FukusITo（フクシト）は、福祉の温かい心と最先端のIT技術を融合し、誰もが暮らしやすい社会を実現するために設立されました。
-      </p>
-      <p>
-        私たちのミッションは、テクノロジーの力でコミュニティの輪を広げ、互いに助け合う社会を構築することです。
-      </p>
-    </div>
-  </section>
+  <!-- Main -->
+  <main class="et-main">
+    <section class="et-slide" id="tab-es6">
+      <h1>ES6</h1>
+      <h3>something about es6</h3>
+    </section>
+    <section class="et-slide" id="tab-flexbox">
+      <h1>Flexbox</h1>
+      <h3>something about flexbox</h3>
+    </section>
+    <section class="et-slide" id="tab-react">
+      <h1>React</h1>
+      <h3>something about react</h3>
+    </section>
+    <section class="et-slide" id="tab-angular">
+      <h1>Angular</h1>
+      <h3>something about angular</h3>
+    </section>
+    <section class="et-slide" id="tab-other">
+      <h1>Other</h1>
+      <h3>something about other</h3>
+    </section>
+  </main>
 
-  <!-- Service セクション -->
-  <section id="service" class="container">
-    <h2 class="section-title">Our Service</h2>
-    <div class="service grid">
-      <div class="service-item">
-        <h3>リアルタイムマッチングサービス</h3>
-        <p>
-          助け合いを目的としたマッチングサービスで、必要な時に必要なサポートを手軽に受けられる仕組みを提供します。
-        </p>
-      </div>
-      <div class="service-item">
-        <h3>革新的なコミュニケーション</h3>
-        <p>
-          最先端の技術を活用し、ユーザー同士が直感的にコミュニケーションできるプラットフォームを構築。
-        </p>
-      </div>
-      <div class="service-item">
-        <h3>安心と信頼のセキュリティ</h3>
-        <p>
-          高度なセキュリティ対策により、安心してサービスをご利用いただける環境を提供します。
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- jQueryの読み込み -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-  <!-- Contact セクション -->
-  <section id="contact" class="container">
-    <h2 class="section-title">Contact Us</h2>
-    <div class="about">
-      <p>お問い合わせは以下のメールアドレスまでご連絡ください。</p>
-      <p>Email: <a href="mailto:info@fukusito.com" style="color:#00d1b2;">info@fukusito.com</a></p>
-    </div>
-  </section>
+  <script>
+    class StickyNavigation {
 
-  <!-- フッター -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 FukusITo. All rights reserved.</p>
-    </div>
-  </footer>
+      constructor() {
+        this.currentId = null;
+        this.currentTab = null;
+        this.tabContainerHeight = 70;
+        let self = this;
+        $('.et-hero-tab').click(function () {
+          self.onTabClick(event, $(this));
+        });
+        $(window).scroll(() => { this.onScroll(); });
+        $(window).resize(() => { this.onResize(); });
+      }
+
+      onTabClick(event, element) {
+        event.preventDefault();
+        let scrollTop = $(element.attr('href')).offset().top - this.tabContainerHeight + 1;
+        $('html, body').animate({ scrollTop: scrollTop }, 600);
+      }
+
+      onScroll() {
+        this.checkTabContainerPosition();
+        this.findCurrentTabSelector();
+      }
+
+      onResize() {
+        if (this.currentId) {
+          this.setSliderCss();
+        }
+      }
+
+      checkTabContainerPosition() {
+        let offset = $('.et-hero-tabs').offset().top + $('.et-hero-tabs').height() - this.tabContainerHeight;
+        if ($(window).scrollTop() > offset) {
+          $('.et-hero-tabs-container').addClass('et-hero-tabs-container--top');
+        }
+        else {
+          $('.et-hero-tabs-container').removeClass('et-hero-tabs-container--top');
+        }
+      }
+
+      findCurrentTabSelector(element) {
+        let newCurrentId;
+        let newCurrentTab;
+        let self = this;
+        $('.et-hero-tab').each(function () {
+          let id = $(this).attr('href');
+          let offsetTop = $(id).offset().top - self.tabContainerHeight;
+          let offsetBottom = $(id).offset().top + $(id).height() - self.tabContainerHeight;
+          if ($(window).scrollTop() > offsetTop && $(window).scrollTop() < offsetBottom) {
+            newCurrentId = id;
+            newCurrentTab = $(this);
+          }
+        });
+        if (this.currentId != newCurrentId || this.currentId === null) {
+          this.currentId = newCurrentId;
+          this.currentTab = newCurrentTab;
+          this.setSliderCss();
+        }
+      }
+
+      setSliderCss() {
+        let width = 0;
+        let left = 0;
+        if (this.currentTab) {
+          width = this.currentTab.css('width');
+          left = this.currentTab.offset().left;
+        }
+        $('.et-hero-tab-slider').css('width', width);
+        $('.et-hero-tab-slider').css('left', left);
+      }
+
+    }
+
+    new StickyNavigation();
+  </script>
 </body>
+
 </html>
