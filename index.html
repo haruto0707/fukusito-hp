@@ -1,105 +1,132 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FukusITo | 福祉×ITで未来を創る</title>
-  <!-- リセットCSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
-  <!-- Google Fonts: Poppins を使用 -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <!-- style.css -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css">
+  <title>FukusITo | 福祉×ITで未来を創る</title>
 </head>
+
 <body>
-  <!-- ヘッダー -->
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <h2>FukusITo</h2>
-        </div>
-        <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#service">Service</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ヒーローセクション -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <h1>福祉とITの融合</h1>
-      <p>テクノロジーで温かい未来を創る</p>
-      <a href="#service" class="btn">もっと見る</a>
-    </div>
-    <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });"></div>
-  </section>
-
-  <!-- About セクション -->
-  <section id="about" class="container fade-in">
-    <h2 class="section-title">About FukusITo</h2>
-    <div class="about">
-      <p>
-        FukusITo（フクシト）は、福祉の温かさと先端技術を融合し、誰もが安心して暮らせる社会の実現を目指しています。
-      </p>
-      <p>
-        私たちは、コミュニティの絆を強め、テクノロジーの力で新しい価値を提供することに情熱を注いでいます。
-      </p>
+  <!-- Hero -->
+  <section class="et-hero-tabs">
+    <h1>STICKY SLIDER NAV</h1>
+    <h3>Sliding content with sticky tab nav</h3>
+    <div class="et-hero-tabs-container">
+      <a class="et-hero-tab" href="#tab-es6">ES6</a>
+      <a class="et-hero-tab" href="#tab-flexbox">Flexbox</a>
+      <a class="et-hero-tab" href="#tab-react">React</a>
+      <a class="et-hero-tab" href="#tab-angular">Angular</a>
+      <a class="et-hero-tab" href="#tab-other">Other</a>
+      <span class="et-hero-tab-slider"></span>
     </div>
   </section>
 
-  <!-- Service セクション -->
-  <section id="service" class="container fade-in">
-    <h2 class="section-title">Our Service</h2>
-    <div class="service grid">
-      <div class="service-item">
-        <h3>リアルタイムマッチング</h3>
-        <p>
-          助け合いを目的とした、瞬時にマッチングできるサービスで、必要なサポートを提供します。
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- Main -->
+  <main class="et-main">
+    <section class="et-slide" id="tab-es6">
+      <h1>ES6</h1>
+      <h3>something about es6</h3>
+    </section>
+    <section class="et-slide" id="tab-flexbox">
+      <h1>Flexbox</h1>
+      <h3>something about flexbox</h3>
+    </section>
+    <section class="et-slide" id="tab-react">
+      <h1>React</h1>
+      <h3>something about react</h3>
+    </section>
+    <section class="et-slide" id="tab-angular">
+      <h1>Angular</h1>
+      <h3>something about angular</h3>
+    </section>
+    <section class="et-slide" id="tab-other">
+      <h1>Other</h1>
+      <h3>something about other</h3>
+    </section>
+  </main>
 
-  <!-- Contact セクション -->
-  <section id="contact" class="container fade-in">
-    <h2 class="section-title">Contact Us</h2>
-    <div class="contact-info">
-      <p>ご質問やご意見は以下のメールアドレスまでお気軽にお問い合わせください。</p>
-      <p>Email: <a href="mailto:support@fukusito.net">support@fukusito.net</a></p>
-    </div>
-  </section>
+  <!-- jQueryの読み込み -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
-  <!-- フッター -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 FukusITo. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- スクロール時のフェードインアニメーション用 JavaScript -->
   <script>
-    // Intersection Observer で .fade-in 要素に appear クラスを追加
-    const faders = document.querySelectorAll('.fade-in');
-    const appearOptions = {
-      threshold: 0.3
-    };
+    class StickyNavigation {
 
-    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('appear');
-        observer.unobserve(entry.target);
-      });
-    }, appearOptions);
+      constructor() {
+        this.currentId = null;
+        this.currentTab = null;
+        this.tabContainerHeight = 70;
+        let self = this;
+        $('.et-hero-tab').click(function () {
+          self.onTabClick(event, $(this));
+        });
+        $(window).scroll(() => { this.onScroll(); });
+        $(window).resize(() => { this.onResize(); });
+      }
 
-    faders.forEach(fader => {
-      appearOnScroll.observe(fader);
-    });
+      onTabClick(event, element) {
+        event.preventDefault();
+        let scrollTop = $(element.attr('href')).offset().top - this.tabContainerHeight + 1;
+        $('html, body').animate({ scrollTop: scrollTop }, 600);
+      }
+
+      onScroll() {
+        this.checkTabContainerPosition();
+        this.findCurrentTabSelector();
+      }
+
+      onResize() {
+        if (this.currentId) {
+          this.setSliderCss();
+        }
+      }
+
+      checkTabContainerPosition() {
+        let offset = $('.et-hero-tabs').offset().top + $('.et-hero-tabs').height() - this.tabContainerHeight;
+        if ($(window).scrollTop() > offset) {
+          $('.et-hero-tabs-container').addClass('et-hero-tabs-container--top');
+        }
+        else {
+          $('.et-hero-tabs-container').removeClass('et-hero-tabs-container--top');
+        }
+      }
+
+      findCurrentTabSelector(element) {
+        let newCurrentId;
+        let newCurrentTab;
+        let self = this;
+        $('.et-hero-tab').each(function () {
+          let id = $(this).attr('href');
+          let offsetTop = $(id).offset().top - self.tabContainerHeight;
+          let offsetBottom = $(id).offset().top + $(id).height() - self.tabContainerHeight;
+          if ($(window).scrollTop() > offsetTop && $(window).scrollTop() < offsetBottom) {
+            newCurrentId = id;
+            newCurrentTab = $(this);
+          }
+        });
+        if (this.currentId != newCurrentId || this.currentId === null) {
+          this.currentId = newCurrentId;
+          this.currentTab = newCurrentTab;
+          this.setSliderCss();
+        }
+      }
+
+      setSliderCss() {
+        let width = 0;
+        let left = 0;
+        if (this.currentTab) {
+          width = this.currentTab.css('width');
+          left = this.currentTab.offset().left;
+        }
+        $('.et-hero-tab-slider').css('width', width);
+        $('.et-hero-tab-slider').css('left', left);
+      }
+
+    }
+
+    new StickyNavigation();
   </script>
 </body>
+
 </html>
