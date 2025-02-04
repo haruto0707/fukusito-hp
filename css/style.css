@@ -1,251 +1,86 @@
-/* カラーバリアブル */
-:root {
-    --orange: #FF9F0E;
-    --green:  #00A898;
-    --dark-bg: #424242;
-    --mid-bg:  #4e4e4e;
-    --light-text: #f0f0f0;
-}
-/* リセット */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 body {
-    font-family: 'Poppins', sans-serif;
-    background: var(--dark-bg);
-    color: var(--light-text);
-    line-height: 1.6;
-    overflow-x: hidden;
+    font-family: "Century Gothic", 'Lato', sans-serif;
 }
+
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
 }
-/* 固定ヘッダー */
-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
-}
-nav {
+
+.et-hero-tabs,
+.et-slide {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px 0;
-}
-nav .logo h2 {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-}
-nav ul {
-    list-style: none;
-    display: flex;
-}
-nav ul li {
-    margin-left: 25px;
-}
-nav ul li a {
-    font-weight: 600;
-    transition: color 0.3s;
-}
-nav ul li a:hover {
-    color: var(--orange);
-}
-/* 各セクションのマージン */
-#about, #service, #contact {
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-/* ヒーローセクション */
-.hero {
     height: 100vh;
-    background: url('https://source.unsplash.com/1600x900/?technology,abstract') no-repeat center center/cover;
     position: relative;
+    background: #eee;
+    text-align: center;
+    padding: 0 2em;
+    h1 {
+        font-size: 2rem;
+        margin: 0;
+        letter-spacing: 1rem;
+    }
+    h3 {
+        font-size: 1rem;
+        letter-spacing: 0.3rem;
+        opacity: 0.6;
+    }
+}
+
+.et-hero-tabs-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-/* オーバーレイ＋背景アニメーション */
-.hero::before {
-    content: "";
+    flex-direction: row;
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(135deg, rgba(255,165,0,0.5), rgba(50,205,50,0.5));
-    mix-blend-mode: screen;
-    animation: gradientShift 8s ease-in-out infinite alternate;
-}
-@keyframes gradientShift {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(45deg);
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    z-index: 10;
+    &--top {
+        position: fixed;
+        top: 0;
     }
 }
-.hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    padding: 0 20px;
-    animation: fadeInDown 1.2s ease-out;
-}
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.hero-content h1 {
-    font-size: 3.8rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-}
-.hero-content p {
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-}
-.btn {
-    background: var(--orange);
+
+.et-hero-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
     color: #000;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: background 0.3s, transform 0.3s;
+    letter-spacing: 0.1rem;
+    transition: all 0.5s ease;
+    font-size: 0.8rem;
+    &:hover {
+      color:white;
+      background: rgba(102,177,241,0.8);
+      transition: all 0.5s ease;
+    }
 }
-.btn:hover {
-    background: var(--green);
-    transform: scale(1.05);
-}
-/* スクロールダウンアイコン */
-.scroll-down {
+
+.et-hero-tab-slider {
     position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 50px;
-    border: 2px solid var(--light-text);
-    border-radius: 25px;
-    opacity: 0.8;
-    cursor: pointer;
-}
-.scroll-down::after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
+    bottom: 0;
+    width: 0;
     height: 6px;
-    background: var(--light-text);
-    border-radius: 50%;
-    animation: bounce 1.5s infinite;
+    background: #66B1F1;
+    transition: left 0.3s ease;
 }
-@keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(10px); }
-}
-/* セクション共通 */
-section {
-    padding: 100px 0;
-}
-.section-title {
-    text-align: center;
-    font-size: 2.8rem;
-    margin-bottom: 60px;
-    position: relative;
-    display: inline-block;
-}
-.section-title::after {
-    content: "";
-    width: 80px;
-    height: 4px;
-    background: var(--green);
-    position: absolute;
-    left: 50%;
-    bottom: -12px;
-    transform: translateX(-50%);
-}
-/* フェードイン用初期状態 */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.fade-in.appear {
-    opacity: 1;
-    transform: translateY(0);
-}
-/* About & Service セクションのスタイル */
-.about, .service {
-    background: var(--mid-bg);
-    padding: 60px;
-    border-radius: 10px;
-}
-.about p, .service p {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-}
-.grid {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-.service-item {
-    background: var(--dark-bg);
-    padding: 30px;
-    border-radius: 8px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.service-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
-.service-item h3 {
-    margin-bottom: 15px;
-    color: var(--orange);
-}
-/* Contact セクション */
-.contact-info {
-    background: var(--mid-bg);
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 1.1rem;
-}
-.contact-info a {
-    color: var(--orange);
-    font-weight: 600;
-}
-/* フッター */
-footer {
-    background: var(--dark-bg);
-    padding: 40px 0;
-    text-align: center;
-    font-size: 0.9rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-/* レスポンシブ */
-@media (max-width: 768px) {
-    .hero-content h1 {
+
+@media (min-width: 800px) {
+  .et-hero-tabs,
+  .et-slide {
+    h1 {
         font-size: 3rem;
     }
-    .hero-content p {
-        font-size: 1.1rem;
+    h3 {
+        font-size: 1rem;
     }
+  }
+  .et-hero-tab {
+    font-size: 1rem;
+  }
 }
