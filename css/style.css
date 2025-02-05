@@ -181,6 +181,14 @@ section:nth-child(odd) {
   color: #ffffffb3;
   font-size: 0.8em;
 }
+
+@media only screen and (max-width: 767px) {
+  /* スクロール時に左上に表示されるロゴを非表示にする */
+  #header-scroll.small .logo {
+    display: none;
+  }
+}
+
 .icon {
   height: 5pc;
 }
