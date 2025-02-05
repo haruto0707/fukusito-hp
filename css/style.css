@@ -19,7 +19,7 @@ a.active {
 #header-scroll {
   position: fixed;
   height: 100%;
-  background: rgba(255,159,14,0.4);
+  background: rgba(255,159,14,1);
   left: 0;
   top: 0;
   width: 100%;
