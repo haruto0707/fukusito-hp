@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>現在進行中の活動 - FukusITo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-orange: #F97316;
+            --secondary-green: #22C55E;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-color: #495057;
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans JP', sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: var(--font-body); color: var(--text-color); background-color: #fff; line-height: 1.8; }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+        .header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: 0 auto; }
+        .logo { text-decoration: none; }
+        .logo img { height: 40px; width: auto; vertical-align: middle; }
+        .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 30px; }
+        .nav a { text-decoration: none; color: var(--dark-gray); font-weight: 700; position: relative; padding: 5px 0; transition: color 0.3s; }
+        .nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; background-color: var(--primary-orange); transition: all 0.3s ease-in-out; }
+        .nav a:hover { color: var(--primary-orange); }
+        .nav a:hover::after { width: 100%; left: 0; }
+        .hamburger { display: none; cursor: pointer; }
+        .hamburger div { width: 25px; height: 3px; background-color: var(--dark-gray); margin: 5px 0; transition: all 0.3s; }
+        
+        .page-header {
+            padding: 60px 0;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+        .activities-section {
+            padding: 80px 0;
+        }
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .activity-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        .activity-card .icon {
+            width: 40px;
+            height: 40px;
+            color: var(--secondary-green);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+        .activity-card h3 {
+            margin: 0 0 10px 0;
+            font-family: var(--font-display);
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 2px solid var(--secondary-green);
+            color: var(--secondary-green);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .back-button:hover {
+            background-color: var(--secondary-green);
+            color: white;
+        }
+
+        .footer { background-color: var(--dark-gray); color: #ccc; text-align: center; padding: 40px 0; }
+        .footer .logo img { opacity: 0.8; margin-bottom: 20px; }
+        .footer p { margin-top: 20px; font-size: 0.9rem; }
+        .social-links { display: flex; justify-content: center; gap: 20px; list-style: none; padding: 0; margin-bottom: 20px; }
+        .social-links a { color: white; text-decoration: none; transition: color 0.3s; }
+        .social-links a:hover { color: var(--primary-orange); }
+        .social-links svg { width: 24px; height: 24px; }
+        
+        @media (max-width: 768px) {
+            .nav { position: fixed; top: 70px; left: 0; width: 100%; background-color: white; flex-direction: column; text-align: center; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+            .nav.active { max-height: 500px; padding: 20px 0; box-shadow: 0 10px 10px rgba(0,0,0,0.05); }
+            .nav ul { flex-direction: column; gap: 0; }
+            .nav li { width: 100%; }
+            .nav a { display: block; padding: 15px 0; }
+            .nav a:hover::after { width: 0; }
+            .hamburger { display: block; }
+            .hamburger.active .bar1 { transform: rotate(-45deg) translate(-5px, 6px); }
+            .hamburger.active .bar2 { opacity: 0; }
+            .hamburger.active .bar3 { transform: rotate(45deg) translate(-5px, -6px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo"><img src="./fukusito-logo-removebg (2).png" alt="FukusITo Logo"></a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#mission">概要</a></li>
+                    <li><a href="index.html#product">プロダクト</a></li>
+                    <li><a href="index.html#members">メンバー</a></li>
+                    <li><a href="index.html#activities">活動実績</a></li>
+                    <li><a href="index.html#news">ニュース</a></li>
+                    <li><a href="index.html#contact">問い合わせ</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <header class="page-header">
+            <h1>現在進行中の活動</h1>
+        </header>
+
+        <section class="activities-section">
+            <div class="container activities-grid">
+                
+                <div class="activity-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+                    </div>
+                    <div>
+                        <h3>ねのねプログラム</h3>
+                        <p>名古屋大学にある東海国立大学機構「Common Nexus」のプログラムである「ねのねプログラム」の1期生として活動中。障害を持つ人の視点に立てるような展示やイベントを企画中。</p>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" /></svg>
+                    </div>
+                    <div>
+                        <h3>各ビジネスコンテストへの参加</h3>
+                        <p>「Garage Challenge」をはじめとするビジネスコンテストへ参加。マネタイズが難しい「福祉系ビジネス」を成立させるため様々なアプローチを検討中。</p>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962A3.75 3.75 0 0115 12a3.75 3.75 0 01-2.25 3.512m-3.75-2.962a3.75 3.75 0 00-2.25 3.512M15 12a3.75 3.75 0 01-7.5 0v-4.5A3.75 3.75 0 0115 12z" /></svg>
+                    </div>
+                    <div>
+                        <h3>名城大学との連携</h3>
+                        <p>講義をはじめとして名城大学と協力しながら大学内での助け合いコミュニティの醸成に尽力中。</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="back-button-container">
+                <a href="index.html" class="back-button">トップページへ戻る</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <ul class="social-links">
+                <li><a href="https://x.com/FukusITo_" target="_blank" aria-label="X"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.6.75Zm-1.7 12.95h1.59L3.862 2.155H2.13l8.77 11.545Z"/></svg></a></li>
+                <li><a href="https://www.instagram.com/fukusito/" target="_blank" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.703.01 5.556 0 5.829 0 8s.01 2.444.048 3.297c.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.556 15.99 5.829 16 8 16s2.444-.01 3.297-.048c.852-.04 1.433-.174 1.942-.372.526-.205.972-.478 1.417-.923.445-.444.718-.891.923-1.417.198-.51.333-1.09.372-1.942C15.99 10.444 16 10.171 16 8s-.01-2.444-.048-3.297c-.04-.852-.174-1.433-.372-1.942a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.09-.333-1.942-.372C10.444.01 10.171 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.486.039.843.047 1.096.047 3.232s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.486a2.48 2.48 0 0 1-.598.92c-.28.28-.546.453-.92.598-.282.11-.705-.24-1.486.275-.843.038-1.096.047-3.232.047s-2.389-.008-3.232-.047c-.78-.035-1.203-.166-1.486-.275a2.48 2.48 0 0 1-.92-.598 2.48 2.48 0 0 1-.598-.92c-.11-.282-.24-.705-.275-1.486-.038-.843-.047-1.096-.047-3.232s.008-2.389.047-3.232c.035-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.486-.275.843-.039 1.096-.047 3.232-.047zM8 4.938a3.062 3.062 0 1 0 0 6.125 3.062 3.062 0 0 0 0-6.125zm0 5.062a1.938 1.938 0 1 1 0-3.875 1.938 1.938 0 0 1 0 3.875zm4.405-6.119a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/></svg></a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61578296602292" target="_blank" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0 0 3.603 0 8.049c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/></svg></a></li>
+            </ul>
+            <p>&copy; 2025 FukusITo. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- ハンバーガーメニューの制御 ---
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

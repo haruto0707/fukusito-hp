@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FukusITo</title>
+
+    <!-- Google Fontsの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 全体のスタイル設定 --- */
+        :root {
+            --primary-orange: #F97316;
+            --secondary-green: #22C55E;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-color: #495057;
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Noto Sans JP', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+            /* ヘッダーの高さ分オフセット */
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: #fff;
+            line-height: 1.8;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+        .section-title p {
+            font-size: 1rem;
+            color: var(--secondary-green);
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        /* --- ヘッダー --- */
+        .header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 700;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary-orange);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav a:hover {
+            color: var(--primary-orange);
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--dark-gray);
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
+
+        /* --- ヒーローセクション --- */
+        #hero {
+            height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(34, 197, 94, 0.7), rgba(34, 197, 94, 0.7)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1784&q=80') no-repeat center center/cover;
+            padding: 0;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin: 0 0 20px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 概要 (Mission) --- */
+        #mission {
+            background-color: var(--light-gray);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .mission-item .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+            color: var(--primary-orange);
+        }
+
+        .mission-item h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        /* --- プロダクト紹介 (Product) --- */
+        .product-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .product-image {
+            flex: 1;
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-description {
+            flex: 1;
+        }
+
+        .product-description h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--dark-gray);
+        }
+
+        .product-description .tag {
+            display: inline-block;
+            background-color: var(--secondary-green);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 99px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        /* --- メンバー紹介 (Members) --- */
+        #members {
+            background-color: var(--light-gray);
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .member-card {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .member-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--secondary-green);
+        }
+
+        .member-card h3 {
+            margin: 10px 0 5px;
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+        }
+
+        .member-card .role {
+            color: var(--primary-orange);
+            font-weight: bold;
+        }
+
+        .greeting-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background-color: var(--secondary-green);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .greeting-button:hover {
+            background-color: #16a34a;
+        }
+
+        /* --- 活動実績 (Activities) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--secondary-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 0;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 30px;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border: 4px solid var(--primary-orange);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: var(--primary-orange);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary-green);
+            margin-bottom: 10px;
+        }
+        
+        .recent-activities-link {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* --- ニュース (News) --- */
+        #news {
+            background-color: var(--light-gray);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card-content h3 {
+            margin: 10px 0 0;
+            font-size: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .news-tag {
+            padding: 4px 10px;
+            border-radius: 99px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-release {
+            background-color: var(--primary-orange);
+        }
+
+        .tag-event {
+            background-color: var(--secondary-green);
+        }
+
+        /* --- お問い合わせ (Contact) --- */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-orange);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #fb923c;
+        }
+
+        /* --- フッター --- */
+        .footer {
+            background-color: var(--dark-gray);
+            color: #ccc;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .footer .logo img {
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .social-links svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* --- レスポンシブ対応 --- */
+        @media (max-width: 768px) {
+            .nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-in-out;
+            }
+
+            .nav.active {
+                max-height: 500px;
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+            }
+
+            .nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav li {
+                width: 100%;
+            }
+
+            .nav a {
+                display: block;
+                padding: 15px 0;
+            }
+
+            .nav a:hover::after {
+                width: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .hamburger.active .bar2 {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .product-content {
+                flex-direction: column;
+            }
+
+            .timeline::after {
+                left: 20px;
+                margin-left: 0;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 10px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-right: 10px;
+                text-align: left;
+            }
+
+            .timeline-item::after {
+                left: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="./fukusito-logo-removebg (2).png" alt="FukusITo Logo">
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html#mission">概要</a></li>
+                    <li><a href="index.html#product">プロダクト</a></li>
+                    <li><a href="index.html#members">メンバー</a></li>
+                    <li><a href="index.html#activities">活動実績</a></li>
+                    <li><a href="index.html#news">ニュース</a></li>
+                    <li><a href="index.html#contact">問い合わせ</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ヒーローセクション -->
+        <section id="hero">
+            <div class="hero-content">
+                <h1>福祉と技術で、未来を照らす。</h1>
+                <p>FukusIToは、テクノロジーで社会課題を解決するスタートアップです。</p>
+            </div>
+        </section>
+
+        <!-- 概要 (Mission) -->
+        <section id="mission" class="container">
+            <div class="section-title">
+                <h2>Our Mission</h2>
+                <p>私たちが目指すこと</p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-item">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.311a7.5 7.5 0 01-7.5 0c-1.421-.492-2.682-.908-3.75-1.433" />
+                    </svg>
+                    <h3>誰も取り残さない</h3>
+                    <p>テクノロジーの力で、困っているすべての人に対して手を差し伸べられる社会の実現を目指します。</p>
+                </div>
+                <div class="mission-item">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    <h3>助け合い後進国からの脱却</h3>
+                    <p>World Giving Indexによると、見知らぬ人を助けた割合が日本は最低水準というデータがあります。この水準を少しでも上げることをミッションとします。</p>
+                </div>
+                <div class="mission-item">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" />
+                    </svg>
+                    <h3>経験を活かした事業開発</h3>
+                    <p>身体障害者である代表の経験を活かして、より当事者に近い視点で事業を開発していきます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- プロダクト紹介 (Product) -->
+        <section id="product" class="container">
+            <div class="section-title">
+                <h2>Product</h2>
+                <p>私たちのプロダクト</p>
+            </div>
+            <div class="product-content">
+                <div class="product-image"><img
+                        src="./helpconect.png"
+                        alt="プロダクトのイメージ画像"></div>
+                <div class="product-description"><span class="tag">助け合い支援ツール</span>
+                    <h3>HELP CONNECT</h3>
+                    <p>外出先などで障害のある方が「ちょっとした困りごと」を抱えた際、専用アプリを通じて近くにいるサポーターに助けを求めることができるサービスです。</p>
+                    <a href="product-helpconnect.html" class="cta-button">詳しく見る</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- メンバー紹介 (Members) -->
+        <section id="members">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Members</h2>
+                    <p>私たちのチーム</p>
+                </div>
+                <div class="members-grid">
+                    <div class="member-card"><img src="./発表のとき.jpg" alt="榊原 悠大の顔写真">
+                        <h3>榊原 悠大</h3>
+                        <p class="role">代表</p>
+                        <p class="comment">「障害を持っているからこそできることを存分に発揮し、社会をより良く変えていきます。」</p>
+                        <a href="greeting.html" class="greeting-button">代表挨拶</a>
+                    </div>
+                    <div class="member-card"><img src="https://placehold.co/400x400/EFEFEF/333?text=N.I"
+                            alt="メンバー2の顔写真">
+                        <h3>伊丹 斉彬</h3>
+                        <p class="role">メンバー</p>
+                        <p class="comment"></p>
+                    </div>
+                    <div class="member-card"><img src="https://placehold.co/400x400/EFEFEF/333?text=M.I"
+                            alt="メンバー3の顔写真">
+                        <h3>稲葉 百音</h3>
+                        <p class="role">メンバー</p>
+                        <p class="comment"></p>
+                    </div>
+                    <div class="member-card"><img src="https://placehold.co/400x400/EFEFEF/333?text=T.K"
+                            alt="メンバー4の顔写真">
+                        <h3>加藤 貴大</h3>
+                        <p class="role">メンバー</p>
+                        <p class="comment"></p>
+                    </div>
+                    <div class="member-card"><img src="https://placehold.co/400x400/EFEFEF/333?text=R.S"
+                            alt="メンバー5の顔写真">
+                        <h3>清家 陸人</h3>
+                        <p class="role">メンバー</p>
+                        <p class="comment"></p>
+                    </div>
+                    <div class="member-card"><img src="https://placehold.co/400x400/EFEFEF/333?text=R.N"
+                            alt="メンバー6の顔写真">
+                        <h3>西岡 亮</h3>
+                        <p class="role">メンバー</p>
+                        <p class="comment"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 活動実績 (Activities) -->
+        <section id="activities" class="container">
+            <div class="section-title">
+                <h2>Activities</h2>
+                <p>これまでの活動</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <p class="timeline-date">2024年9月</p>
+                        <h3>NAGOYA BOOST 10000にてチーム結成</h3>
+                        <p>名古屋市が主催するビジネス・イノベーター創出イベントにてチームを結成しました。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <p class="timeline-date">2025年2月</p>
+                        <h3>NAGOYA BOOST 10000にて優秀賞受賞</h3>
+                        <p>半年間にわたるイベントが終了し、最終ピッチにて優秀賞と最も多くの票を集めた一般投票賞を獲得しました。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <p class="timeline-date">2025年6月</p>
+                        <h3>名城大学にて3度目の実証実験を実施</h3>
+                        <p>名城大学経済学部の小泉准教授のご協力により「障害者と社会」という講義にて講演・実証実験を行い、約280名にご協力いただきました。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recent-activities-link">
+                <a href="recent-activities.html" class="cta-button">現在進行中の活動はこちら</a>
+            </div>
+        </section>
+
+        <!-- ニュース (News) -->
+        <section id="news">
+            <div class="container">
+                <div class="section-title">
+                    <h2>News</h2>
+                    <p>最新情報</p>
+                </div>
+                <div class="news-grid">
+                    <a href="news-1.html" class="news-card">
+                        <img src="./meijo-kougi20250625.jpg"
+                            alt="ニュース1の画像">
+                        <div class="news-card-content">
+                            <div class="news-meta"><time datetime="2025-06-25">2025.06.25</time><span
+                                    class="news-tag tag-event">イベント開催</span></div>
+                            <h3>名城大学経済学部にて講義を行いました。</h3>
+                        </div>
+                    </a>
+                    <a href="news-2.html" class="news-card">
+                        <img src="./garage-challenge.jpg"
+                            alt="ニュース2の画像">
+                        <div class="news-card-content">
+                            <div class="news-meta"><time datetime="2025-06-28">2025.06.28</time><span
+                                    class="news-tag tag-event">イベント参加</span></div>
+                            <h3>Garage Challenge 6th Final Pitchにて登壇しました。</h3>
+                        </div>
+                    </a>
+                    <a href="news-3.html" class="news-card">
+                        <img src="./nenone-first.jpg"
+                            alt="ニュース3の画像">
+                        <div class="news-card-content">
+                            <div class="news-meta"><time datetime="2025-07-05">2025.07.05</time><span
+                                    class="news-tag tag-event">イベント参加</span></div>
+                            <h3>Common Nexusオープニングイベントにて登壇しました。</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- お問い合わせ (Contact) -->
+        <section id="contact" class="container">
+            <div class="section-title">
+                <h2>Contact</h2>
+                <p>お問い合わせ</p>
+            </div>
+            <div class="contact-form">
+                <form action="https://formspree.io/f/mrbkwpky" method="POST">
+                    <div class="form-group"><label for="name">お名前</label><input type="text" id="name" name="name"
+                            required></div>
+                    <div class="form-group"><label for="email">メールアドレス</label><input type="email" id="email"
+                            name="email" required></div>
+                    <div class="form-group"><label for="message">お問い合わせ内容</label><textarea id="message" name="message"
+                            required></textarea></div><button type="submit" class="submit-button">送信する</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <ul class="social-links">
+                <li><a href="https://x.com/FukusITo_" target="_blank" aria-label="X">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.6.75Zm-1.7 12.95h1.59L3.862 2.155H2.13l8.77 11.545Z" />
+                        </svg>
+                    </a></li>
+                <li><a href="https://www.instagram.com/fukusito/" target="_blank" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path
+                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.703.01 5.556 0 5.829 0 8s.01 2.444.048 3.297c.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.556 15.99 5.829 16 8 16s2.444-.01 3.297-.048c.852-.04 1.433-.174 1.942-.372.526-.205.972-.478 1.417-.923.445-.444.718-.891.923-1.417.198-.51.333-1.09.372-1.942C15.99 10.444 16 10.171 16 8s-.01-2.444-.048-3.297c-.04-.852-.174-1.433-.372-1.942a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.09-.333-1.942-.372C10.444.01 10.171 0 8 0zm0 1.442c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.486.039.843.047 1.096.047 3.232s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.486a2.48 2.48 0 0 1-.598.92c-.28.28-.546.453-.92.598-.282.11-.705-.24-1.486.275-.843.038-1.096.047-3.232.047s-2.389-.008-3.232-.047c-.78-.035-1.203-.166-1.486-.275a2.48 2.48 0 0 1-.92-.598 2.48 2.48 0 0 1-.598-.92c-.11-.282-.24-.705-.275-1.486-.038-.843-.047-1.096-.047-3.232s.008-2.389.047-3.232c.035-.78.166-1.204.275-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.486-.275.843-.039 1.096-.047 3.232-.047zM8 4.938a3.062 3.062 0 1 0 0 6.125 3.062 3.062 0 0 0 0-6.125zm0 5.062a1.938 1.938 0 1 1 0-3.875 1.938 1.938 0 0 1 0 3.875zm4.405-6.119a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
+                        </svg>
+                    </a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61578296602292" target="_blank"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0 0 3.603 0 8.049c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                        </svg>
+                    </a></li>
+            </ul>
+            <p>&copy; 2025 FukusITo. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- スクロールアニメーション ---
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => { observer.observe(section); });
+
+        // --- ハンバーガーメニューの制御 ---
+        const hamburger = document.querySelector('.hamburger');
+        const nav = document.querySelector('.nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
